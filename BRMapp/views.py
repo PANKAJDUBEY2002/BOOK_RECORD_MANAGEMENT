@@ -4,6 +4,21 @@ from BRMapp import models
 from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
 
+def userLogin(request):
+    data={}
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(request,username=username,password=password)
+        if user:
+            login(request,user)
+            return HttpResponseRedirect('/BRMapp/view-books/')
+        else:
+            data['error']="username or password is incorrect"
+            res=render(request,'BRMapp/user_login.html',data)
+            return res
+    else:
+        return render(request,'BRMapp/user_login.html',data)
 def search(request):
     form=SearchForm(request.POST)
     books=models.Book.objects.filter(title=form.data['title'])
