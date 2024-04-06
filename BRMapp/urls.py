@@ -8,7 +8,7 @@ path('edit-book',views.editBook),
 path('delete-book',views.deleteBook),
 path('search-book',views.searchBook),
 path('new-book',views.newBook),
-path('add',views.add),
+path(r'^add',views.add),
 path('BRMapp/search',views.search),
 path('edit',views.edit),
 ]
