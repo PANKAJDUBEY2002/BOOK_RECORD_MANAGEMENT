@@ -20,6 +20,7 @@ def edit(request):
     book.author=form.data['author']
     book.pubisher=form.data['publisher']
     book.save()
+    return HttpResponseRedirect('/BRMapp/view_book.html')
 
 def viewBooks(request):
     books=models.Book.objects.all()
