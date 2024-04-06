@@ -17,7 +17,7 @@ def userLogin(request):
         user=authenticate(request,username=username,password=password)
         if user:
             login(request,user)
-            return HttpResponseRedirect('/BRMapp/view-books/')
+            return HttpResponseRedirect('/BRMapp/view-books')
         else:
             data['error']="username or password is incorrect"
             res=render(request,'BRMapp/user_login.html',data)

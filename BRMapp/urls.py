@@ -11,4 +11,6 @@ path('new-book',views.newBook),
 path(r'^add',views.add),
 path('BRMapp/search',views.search),
 path('edit',views.edit),
+path('login',views.userLogin),
+path('logout',views.userLogout),
 ]
