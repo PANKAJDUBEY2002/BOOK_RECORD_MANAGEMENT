@@ -6,7 +6,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 
 def search(request):
     form=SearchForm(request.POST)
-    books=models.Book.object.filter(title=form.data['title'])
+    books=models.Book.objects.filter(title=form.data['title'])
     res=render(request,'BRMapp/search_book.html',{'form':form,'books':books})
     return res
 
