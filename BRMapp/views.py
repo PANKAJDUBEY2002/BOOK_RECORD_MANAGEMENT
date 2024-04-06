@@ -18,6 +18,7 @@ def userLogin(request):
         user=authenticate(request,username=username,password=password)
         if user:
             login(request,user)
+            request.session['username']=username
             return HttpResponseRedirect('/BRMapp/view-books')
         else:
             data['error']="username or password is incorrect"
@@ -65,7 +66,8 @@ def edit(request):
 @login_required(login_url="/BRMapp/login")
 def viewBooks(request):
     books=models.Book.objects.all()
-    res=render(request,'BRMapp/view_book.html',{'books':books})
+    username=request.session['username']
+    res=render(request,'BRMapp/view_book.html',{'books':books,'username':username})
     return res
 @login_required(login_url="/BRMapp/login")
 def newBook(request):
