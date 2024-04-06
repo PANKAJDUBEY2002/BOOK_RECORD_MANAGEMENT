@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from BRMapp.forms import NewBookForm
 from BRMapp import models
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
 def editBook(request):
     book=models.Book.objects.get(id=request.get['bookid'])
@@ -10,7 +10,11 @@ def editBook(request):
     res=render(request,'BRMapp/edit_book.html',{'form':form,'book':book})
     return res
 
-
+def deleteBook(request):
+    bookid=request.GET['bookid']
+    book=models.Book.objects.filter(id=bookid)
+    book.delete()
+    return HttpResponseRedirect('BRMapp/view-books')
 def edit(request):
     form=NewBookForm(request.post)
     book=models.Book()
@@ -20,7 +24,7 @@ def edit(request):
     book.author=form.data['author']
     book.pubisher=form.data['publisher']
     book.save()
-    return HttpResponseRedirect('/BRMapp/view_book.html')
+    return HttpResponseRedirect('/BRMapp/view-books')
 
 def viewBooks(request):
     books=models.Book.objects.all()
@@ -41,4 +45,4 @@ def add(request):
         book.publisher=form.data['publisher']
         book.save()
         s="Record Stored<br><a href='/BRMapp/view-books'>View all Books </a>"
-        retuurn HttpResponse(s)
+        return HttpResponse(s)
