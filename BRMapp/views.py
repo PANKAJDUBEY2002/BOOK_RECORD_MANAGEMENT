@@ -1,8 +1,22 @@
 from django.shortcuts import render
-from BRMapp.forms import NewBookForm
+from BRMapp.forms import NewBookForm,SearchForm
 from BRMapp import models
 from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
+
+def search(request):
+    form=SearchForm(request.POST)
+    books=models.Book.object.filter(title=form.data['title'])
+    res=render(request,'BRMapp/search_book.html',{'form':form,'books':books})
+    return res
+
+
+def searchBook(request):
+    form=SearchForm()
+    res=render(request,'BRMapp/search_book.html',{'form':form})
+    return res
+
+
 def editBook(request):
     book=models.Book.objects.get(id=request.get['bookid'])
     fields={'title':book.title,'price':book.price,'author':book.author,'publisher':book.publisher}
