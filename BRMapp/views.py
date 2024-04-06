@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from BRMapp.forms import NewBookForm
+from BRMapp import models
+from django.http import HttpResponse
 # Create your views here.
 
-
+def viewBooks(request):
+    books=models.Book.objects.all()
+    res=render(request,'BRMapp/view_book.html',{'books':books})
+    return res
 def newBook(request):
     form=NewBookForm()
     res=render(request,'BRMapp/new_book.html',{'form':form})
