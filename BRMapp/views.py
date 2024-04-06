@@ -18,7 +18,7 @@ def searchBook(request):
 
 
 def editBook(request):
-    book=models.Book.objects.get(id=request.get['bookid'])
+    book=models.Book.objects.get(id=request.GET['bookid'])
     fields={'title':book.title,'price':book.price,'author':book.author,'publisher':book.publisher}
     form=NewBookForm(initial=fields)
     res=render(request,'BRMapp/edit_book.html',{'form':form,'book':book})
@@ -30,7 +30,7 @@ def deleteBook(request):
     book.delete()
     return HttpResponseRedirect('BRMapp/view-books')
 def edit(request):
-    form=NewBookForm(request.post)
+    form=NewBookForm(request.POST)
     book=models.Book()
     book.id=request.POST['bookid']
     book.title=form.data['title']
