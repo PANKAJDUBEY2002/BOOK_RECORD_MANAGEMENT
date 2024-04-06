@@ -2,7 +2,12 @@ from django.shortcuts import render
 from BRMapp.forms import NewBookForm,SearchForm
 from BRMapp import models
 from django.http import HttpResponse,HttpResponseRedirect
+from django.contrib.auth import authenticate,login,logout
 # Create your views here.
+
+def userLogout(request):
+    logout(request)
+    return HttpResponseRedirect('/BRMapp/login/')
 
 def userLogin(request):
     data={}
